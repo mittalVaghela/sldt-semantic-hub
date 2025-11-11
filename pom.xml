@@ -98,7 +98,7 @@
 		<jaxb-api.version>2.3.1</jaxb-api.version>
 
 		<!-- semantics -->
-        <samm.sdk.version>2.9.8</samm.sdk.version>
+		<samm.sdk.version>2.9.8</samm.sdk.version>
 		<jena.version>5.0.0</jena.version>
 		<shacl.version>1.3.1</shacl.version>
 		<apache.http.client.version>4.5.12</apache.http.client.version>
@@ -112,10 +112,19 @@
 		<junit.version>4.13.2</junit.version>
 		<testcontainer.version>1.17.6</testcontainer.version>
 		<spring-security.version>6.3.4</spring-security.version>
+		<jacoco.version>0.8.12</jacoco.version>
 		<!-- build -->
 		<maven.compiler.version>3.8.1</maven.compiler.version>
 		<license-tool-plugin-version>1.1.0</license-tool-plugin-version>
+		<sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
 
+		<!-- Sonar Cloud properties -->
+		<sonar.organization>eclipse-tractusx</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.projectKey>eclipse-tractusx_sldt-semantic-hub</sonar.projectKey>
+		<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+		<sonar.projectName>sldt-semantic-hub</sonar.projectName>
+		<sonar.java.source>17</sonar.java.source>
 	</properties>
 
 	<modules>
@@ -327,11 +336,6 @@
 				<groupId>org.eclipse.esmf</groupId>
 				<artifactId>esmf-aspect-model-starter</artifactId>
 				<version>${samm.sdk.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-text</artifactId>
-				<version>1.10.0</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-io</groupId>
@@ -557,6 +561,34 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<formats>
+								<format>XML</format>
+								<format>HTML</format> <!-- Add HTML to check report in a browser -->
+							</formats>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 
 	<repositories>

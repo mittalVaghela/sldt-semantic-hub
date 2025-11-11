@@ -19,6 +19,7 @@
 ###############################################################
 
 product: "Semantic Hub"
+category: 'product'
 leadingRepository: "https://github.com/eclipse-tractusx/sldt-semantic-hub"
 openApiSpecs: https://github.com/eclipse-tractusx/sldt-semantic-hub/blob/main/backend/src/main/resources/static/semantic-hub-openapi.yaml
 repositories:
